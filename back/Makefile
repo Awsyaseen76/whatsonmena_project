@@ -15,7 +15,10 @@ superuser:
 # how to check if the container running its ok if not start it before / also how to open a new terminal if we start first the n exec it still on the same terminal 
 db:
 	docker-compose up -d db
-	docker-compose exec db psql whatsonme_api postgres
+	docker-compose exec db psql whatsonmena postgres
+	
+	# temprary connect to exist databse then create the used database there:
+	# docker-compose exec db psql postgres postgres
 
 shell: # Access the Django Shell on the container
 	docker-compose exec auth ./manage.py shell

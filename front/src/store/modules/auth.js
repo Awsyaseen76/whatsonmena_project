@@ -1,4 +1,4 @@
-import http from '../../http-common';
+import http from '../../glue';
 
 const state = {
   allAuths: [1, 2, 3],

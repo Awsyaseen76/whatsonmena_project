@@ -9,9 +9,7 @@
       <v-col md="9">
         <v-list>
           <v-list-item v-for="(auth, id) in allAuths" :key="id">
-            <v-list-item-content>
-              {{ auth }}
-            </v-list-item-content>
+            <v-list-item-content>{{ auth }}</v-list-item-content>
           </v-list-item>
         </v-list>
         <!-- All Auths: {{allAuths}} -->
@@ -21,7 +19,6 @@
 </template>
 
 <script>
-// import http from "../http-common";
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
@@ -33,30 +30,9 @@ export default {
   methods: {
     ...mapActions(['getAllAuths'])
   },
-  // methods: //{
-  // mapActions['getAllAuths'],
-
-  // getAllAuths(){
-  //   http
-  //     .get('/all')
-  //     .then(response => {
-  //       this.auths = response.data;
-  //       console.log('the auths are: ', response.data);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     })
-  // }
-  //},
-
   computed: {
     ...mapGetters(['allAuths'])
   },
-
-  // mounted(){
-  //   this.getAllAuths()
-  // },
-
   created() {
     this.getAllAuths();
   }

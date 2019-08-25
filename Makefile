@@ -1,7 +1,7 @@
 MAKE_DIR = $(PWD)
 
-auth_make = $(MAKE_DIR)/services/auth/authAPI
-auth_vue = $(MAKE_DIR)/services/auth/auth_vue
+auth_make = $(MAKE_DIR)/back
+auth_vue = $(MAKE_DIR)/front
 
 start: 
 	# cd $(auth_make) && make start && docker run -it -d -p 4200:80 --rm --name dockerize-vuejs dockerize-vue

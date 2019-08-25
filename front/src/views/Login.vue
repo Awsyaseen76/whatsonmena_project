@@ -29,7 +29,6 @@
 </template>
 
 <script>
-// import http from '../http-common'
 import { mapActions } from 'vuex';
 export default {
   data: () => ({
@@ -41,19 +40,6 @@ export default {
   },
   methods: {
     ...mapActions(['login'])
-    // login: function(logData){
-    //   // const parseLogData  = JSON.parse(JSON.stringify(logData))
-    //   console.log('the login data: ', logData);
-    //   // const temp = {"email": "test4@email.com", "password": "1"}
-    //   http
-    //     .post('/login', logData)
-    //     .then(function(response) {
-    //       console.log('the response is: ', response.data);
-    //     })
-    //     .catch(function(err){
-    //       console.log('the error is: ', err);
-    //     })
-    // }
   }
 };
 </script>
