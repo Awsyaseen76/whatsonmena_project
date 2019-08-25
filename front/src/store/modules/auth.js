@@ -22,7 +22,7 @@ const actions = {
   },
   async register({ commit }, regData) {
     try {
-      const response = await http.post('/all', regData);
+      const response = await http.post('/create_auth', regData);
       console.log(response);
       commit('setLogged', response.data);
     } catch (error) {
