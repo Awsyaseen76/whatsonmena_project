@@ -27,14 +27,14 @@ export default {
   //     auths: []
   //   }
   // },
-  methods: {
-    ...mapActions(['getAllAuths'])
-  },
+  // methods: {
+  //   ...mapActions(['getAllAuths'])
+  // },
   computed: {
     ...mapGetters(['allAuths'])
-  },
-  created() {
-    this.getAllAuths();
   }
+  // created() {
+  //   this.getAllAuths();
+  // }
 };
 </script>
