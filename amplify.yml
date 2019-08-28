@@ -11,7 +11,8 @@ frontend:
         - npm run build
   artifacts:
     # IMPORTANT - Please verify your build output directory
-    baseDirectory: dist
+
+    baseDirectory: "front/dist"
     files: "**.*"
   cache:
     paths:
