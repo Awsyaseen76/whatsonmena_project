@@ -4,6 +4,9 @@ import Vuetify from 'vuetify/lib';
 Vue.use(Vuetify);
 
 export default new Vuetify({
+  icons: {
+    iconfont: 'md'
+  },
   theme: {
     themes: {
       light: {
@@ -16,8 +19,5 @@ export default new Vuetify({
         success: '#cddc39'
       }
     }
-  },
-  icons: {
-    iconfont: 'mdi'
   }
 });

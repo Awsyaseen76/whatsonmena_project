@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <!-- <div>
     <amplify-authenticator></amplify-authenticator>
     <amplify-sign-out v-if="signedIn"></amplify-sign-out>
-  </div>
-  <!-- <v-card class="elevation-12">
+  </div>-->
+  <v-card class="elevation-12">
     <v-toolbar color="lime" dark flat>
       <v-toolbar-title>Sign-up</v-toolbar-title>
     </v-toolbar>
@@ -15,6 +15,7 @@
           label="Password"
           name="password"
           type="password"
+          prepend-icon="lock"
           v-model="regData.password"
         ></v-text-field>
       </v-form>
@@ -24,8 +25,9 @@
       <v-btn color="lime" @click="register(regData)">Sign-up</v-btn>
       <v-btn color="error" to="/">Cancel</v-btn>
     </v-card-actions>
-  </v-card>-->
+  </v-card>
 </template>
+
 
 <script>
 import authLayout from '../layouts/authLayout';
