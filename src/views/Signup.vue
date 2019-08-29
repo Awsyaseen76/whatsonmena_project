@@ -9,7 +9,13 @@
     </v-toolbar>
     <v-card-text>
       <v-form>
-        <v-text-field label="Email" name="Email" type="email" v-model="regData.email"></v-text-field>
+        <v-text-field
+          label="Email"
+          name="Email"
+          type="email"
+          prepend-icon="email"
+          v-model="regData.email"
+        ></v-text-field>
         <v-text-field
           id="password"
           label="Password"
