@@ -9,6 +9,11 @@
             "UnauthRoleName": "whatsonmenaproject-dev-20190829000740-unauthRole",
             "StackName": "whatsonmenaproject-dev-20190829000740",
             "StackId": "arn:aws:cloudformation:us-east-1:792395335390:stack/whatsonmenaproject-dev-20190829000740/dfd8f4c0-c9d7-11e9-8b4d-0e17762a99e0"
+        },
+        "categories": {
+            "auth": {
+                "whatsonmenaproject7dde65f6": {}
+            }
         }
     }
 }

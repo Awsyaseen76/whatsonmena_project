@@ -10,10 +10,10 @@
                     <v-tab :to="item.title" active-class="white--text">{{item.title}}</v-tab>
         </v-toolbar-items>-->
         <v-toolbar-items class="green--text text--darken-4">
-          <v-tab active-class="white--text" :to="'home'">Home</v-tab>
-          <v-tab active-class="white--text" :to="'about'">About</v-tab>
-          <v-tab active-class="white--text" :to="'login'" v-if="!loggedin">Login</v-tab>
-          <v-tab active-class="white--text" :to="'signup'" v-if="!loggedin">Register</v-tab>
+          <v-tab active-class="white--text" to="/">Home</v-tab>
+          <v-tab active-class="white--text" to="/about">About</v-tab>
+          <v-tab active-class="white--text" to="/login" v-if="!loggedin">Login</v-tab>
+          <v-tab active-class="white--text" to="/signup" v-if="!loggedin">Register</v-tab>
           <v-tab active-class="white--text" v-if="loggedin">{{loggedin.id}}</v-tab>
         </v-toolbar-items>
       </template>

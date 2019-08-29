@@ -1,8 +1,9 @@
 <template>
-  <!-- <v-container class="fill-height" fluid>
-    <v-row align="center" justify="center">
-  <v-col cols="12" sm="8" md="4">-->
-  <v-card class="elevation-12">
+  <div>
+    <amplify-authenticator></amplify-authenticator>
+    <amplify-sign-out v-if="signedIn"></amplify-sign-out>
+  </div>
+  <!-- <v-card class="elevation-12">
     <v-toolbar color="lime" dark flat>
       <v-toolbar-title>Sign-up</v-toolbar-title>
     </v-toolbar>
@@ -23,17 +24,18 @@
       <v-btn color="lime" @click="register(regData)">Sign-up</v-btn>
       <v-btn color="error" to="/">Cancel</v-btn>
     </v-card-actions>
-  </v-card>
-  <!-- </v-col>
-    </v-row>
-  </v-container>-->
+  </v-card>-->
 </template>
 
 <script>
 import authLayout from '../layouts/authLayout';
 import { mapActions } from 'vuex';
+import { Auth } from 'aws-amplify';
+import { AmplifyEventBus } from 'aws-amplify-vue';
+
 export default {
   data: () => ({
+    signedIn: false,
     drawer: null,
     regData: { email: '', password: '' }
   }),
@@ -42,9 +44,27 @@ export default {
   },
   methods: {
     ...mapActions(['register'])
+    // async isUserSignedIn() {
+    //   try {
+    //     const userObj = await Auth.currentAuthenticatedUser();
+    //     this.signedIn = true;
+    //     console.log('the user object: ', userObj);
+    //   } catch (error) {
+    //     console.log(error);
+    //     signedIn = false;
+    //   }
+    // }
   },
   created() {
     this.$emit(`update:layout`, authLayout);
+    AmplifyEventBus.$on('authState', info => {
+      if (info === 'signedIn') {
+        // this.isUserSignedIn();
+        this.signedIn = true;
+      } else {
+        this.signedIn = false;
+      }
+    });
   }
 };
 </script>

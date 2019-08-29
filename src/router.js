@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 // import Home from './views/Home.vue';
 // import Login from './views/Login';
-// import Join from './views/Join';
+// import Signup from './views/Signup';
 
 Vue.use(Router);
 
@@ -16,11 +16,6 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    {
-      path: '/home',
-      name: 'home',
-      component: loadview('Home')
-    },
     {
       path: '/',
       name: 'home',
@@ -41,7 +36,7 @@ export default new Router({
     {
       path: '/signup',
       name: 'signup',
-      component: loadview('Join')
+      component: loadview('Signup')
     }
   ]
 });
