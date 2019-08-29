@@ -7,3 +7,13 @@
     </v-row>
   </v-container>
 </template>
+
+<script>
+import mainLayout from '../layouts/mainLayout';
+
+export default {
+  created() {
+    this.$emit(`update:layout`, mainLayout);
+  }
+};
+</script>

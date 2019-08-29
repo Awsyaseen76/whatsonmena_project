@@ -20,6 +20,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import mainLayout from '../layouts/mainLayout';
+import mainLayoutVue from '../layouts/mainLayout.vue';
 
 export default {
   // data(){
@@ -30,6 +32,9 @@ export default {
   // methods: {
   //   ...mapActions(['getAllAuths'])
   // },
+  created() {
+    this.$emit(`update:layout`, mainLayoutVue);
+  },
   computed: {
     ...mapGetters(['allAuths'])
   }

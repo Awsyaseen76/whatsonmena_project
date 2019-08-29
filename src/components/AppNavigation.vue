@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar class="lime">
+    <v-toolbar class="primary">
       <v-app-bar-nav-icon v-if="$vuetify.breakpoint.smAndDown" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer class="hidden-md-and-up"></v-spacer>
       <v-toolbar-title class="green--text text--darken-4">{{appTitle}}</v-toolbar-title>
