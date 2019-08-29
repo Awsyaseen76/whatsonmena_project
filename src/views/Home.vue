@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row justify="center">
       <v-col md="9">
-        <h1 class="text-center">Welcome to 'WhatsonMENA'</h1>
+        <h1 class="text-center">Welcome to 'Whatson-MENA'</h1>
       </v-col>
     </v-row>
     <v-row justify="center">
