@@ -1,16 +1,19 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-// import Home from './views/Home.vue';
-// import Login from './views/Login';
-// import Signup from './views/Signup';
+import Home from './views/Home.vue';
+import About from './views/About';
+import Login from './views/auth/Login';
+import Signup from './views/auth/Signup';
+import ConfirmSignup from './views/auth/ConfirmSignup.vue';
+import ForgetPassword from './views/auth/ForgetPassword.vue';
 
 Vue.use(Router);
 
 // Using lazy loading that load the vues dynamically so it will be faster
-const loadview = view => {
-  return () =>
-    import(/* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`);
-};
+// const loadview = view => {
+//   return () =>
+//     import(/* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`);
+// };
 
 export default new Router({
   mode: 'history',
@@ -19,24 +22,33 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: loadview('Home')
+      component: Home
+      // component: loadview('Home')
     },
     {
       path: '/about',
       name: 'about',
-      // component: () =>
-      //   import(/* webpackChunkName: "about" */ './views/About.vue')
-      component: loadview('About')
+      component: About
     },
     {
       path: '/login',
       name: 'login',
-      component: loadview('Login')
+      component: Login
     },
     {
       path: '/signup',
       name: 'signup',
-      component: loadview('Signup')
+      component: Signup
+    },
+    {
+      path: '/confirmSignup',
+      name: 'confirmSignup',
+      component: ConfirmSignup
+    },
+    {
+      path: '/forgetPassword',
+      name: 'forgetPassword',
+      component: ForgetPassword
     }
   ]
 });
