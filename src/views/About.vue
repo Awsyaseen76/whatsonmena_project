@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import mainLayout from '../layouts/mainLayout';
+import MainLayout from '../layouts/MainLayout';
 
 export default {
   created() {
-    this.$emit(`update:layout`, mainLayout);
+    this.$emit(`update:layout`, MainLayout);
   }
 };
 </script>

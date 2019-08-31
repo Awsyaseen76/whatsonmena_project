@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import authLayout from '../../layouts/authLayout';
+import AuthLayout from '../../layouts/AuthLayout';
 import { mapActions } from 'vuex';
 
 export default {
@@ -52,7 +52,7 @@ export default {
     forgetPassword: userEmail => console.log(userEmail)
   },
   created() {
-    this.$emit(`update:layout`, authLayout);
+    this.$emit(`update:layout`, AuthLayout);
   }
 };
 </script>

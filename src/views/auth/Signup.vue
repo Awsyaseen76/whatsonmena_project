@@ -56,7 +56,7 @@
 
 
 <script>
-import authLayout from '../../layouts/authLayout';
+import AuthLayout from '../../layouts/AuthLayout';
 // import { mapActions } from 'vuex';
 import { Auth } from 'aws-amplify';
 import { AmplifyEventBus } from 'aws-amplify-vue';
@@ -107,15 +107,17 @@ export default {
     }
   },
   created() {
-    this.$emit(`update:layout`, authLayout);
+    this.$emit(`update:layout`, AuthLayout);
     AmplifyEventBus.$on('authState', info => {
       if (info === 'signedIn') {
+        console.log(info);
         // this.isUserSignedIn();
         this.signedIn = true;
       } else {
         this.signedIn = false;
       }
     });
-  }
+  },
+  methods: {}
 };
 </script>

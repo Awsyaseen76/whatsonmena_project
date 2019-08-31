@@ -44,7 +44,7 @@
 
 <script>
 import { Auth } from 'aws-amplify';
-import authLayout from '../../layouts/authLayout';
+import AuthLayout from '../../layouts/AuthLayout';
 import { mapActions } from 'vuex';
 
 export default {
@@ -80,7 +80,7 @@ export default {
     }
   },
   created() {
-    this.$emit(`update:layout`, authLayout);
+    this.$emit(`update:layout`, AuthLayout);
   }
 };
 </script>

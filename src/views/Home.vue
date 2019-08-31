@@ -20,8 +20,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import mainLayout from '../layouts/mainLayout';
-import mainLayoutVue from '../layouts/mainLayout.vue';
+import MainLayout from '../layouts/MainLayout';
+import MainLayoutVue from '../layouts/MainLayout.vue';
 
 export default {
   // data(){
@@ -33,7 +33,7 @@ export default {
   //   ...mapActions(['getAllAuths'])
   // },
   created() {
-    this.$emit(`update:layout`, mainLayoutVue);
+    this.$emit(`update:layout`, MainLayoutVue);
   },
   computed: {
     ...mapGetters(['allAuths'])

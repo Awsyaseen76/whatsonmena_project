@@ -6,6 +6,7 @@ import Login from './views/auth/Login';
 import Signup from './views/auth/Signup';
 import ConfirmSignup from './views/auth/ConfirmSignup.vue';
 import ForgetPassword from './views/auth/ForgetPassword.vue';
+import MemberProfile from './views/user/MemberProfile.vue';
 
 Vue.use(Router);
 
@@ -49,6 +50,11 @@ export default new Router({
       path: '/forgetPassword',
       name: 'forgetPassword',
       component: ForgetPassword
+    },
+    {
+      path: '/memberProfile',
+      name: 'memberProfile',
+      component: MemberProfile
     }
   ]
 });
