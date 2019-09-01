@@ -70,6 +70,13 @@ import { Auth } from 'aws-amplify';
 import { AmplifyEventBus } from 'aws-amplify-vue';
 // Validation
 import { required, minLength, email } from 'vuelidate/lib/validators';
+// Special Validation
+import {
+  hasNumber,
+  hasLowerCaseLetter,
+  hasUpperCaseLetter,
+  hasSpecialCharacter
+} from '../../validators/password';
 
 export default {
   data: () => ({
@@ -83,7 +90,15 @@ export default {
   validations: {
     username: { required },
     email: { required, email },
-    password: { required, minLength: minLength(8) },
+    // password: { required, minLength: minLength(8) },
+    password: {
+      required,
+      minLength: minLength(8),
+      hasNumber,
+      hasLowerCaseLetter,
+      hasUpperCaseLetter,
+      hasSpecialCharacter
+    },
     termsAgreed: {
       checked(val) {
         return val;
@@ -163,9 +178,17 @@ export default {
     passwordErrors() {
       const errors = [];
       if (!this.$v.password.$dirty) return errors;
+      !this.$v.password.required && errors.push('Password is required');
       !this.$v.password.minLength &&
         errors.push('Password must be at least 8 characters');
-      !this.$v.password.required && errors.push('Password is required');
+      !this.$v.password.hasNumber &&
+        errors.push('Password must contain a number');
+      !this.$v.password.hasLowerCaseLetter &&
+        errors.push('Password must contain lower-case letters');
+      !this.$v.password.hasUpperCaseLetter &&
+        errors.push('Password must contain upper-case letters');
+      !this.$v.password.hasSpecialCharacter &&
+        errors.push('Password must contain special character');
       return errors;
     }
   }
