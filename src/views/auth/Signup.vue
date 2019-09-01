@@ -35,6 +35,17 @@
           @input="$v.password.$touch()"
           @blur="$v.password.$touch()"
         ></v-text-field>
+        <v-text-field
+          v-model="repeatPassword"
+          :error-messages="repeatPasswordErrors"
+          :counter="$v.repeatPassword.$params.minLength.min"
+          type="password"
+          prepend-icon="lock"
+          label="Confirm Password"
+          required
+          @input="$v.repeatPassword.$touch()"
+          @blur="$v.repeatPassword.$touch()"
+        ></v-text-field>
         <v-checkbox
           v-model="termsAgreed"
           :error-messages="termsAgreedErrors"
@@ -69,7 +80,7 @@ import { Auth } from 'aws-amplify';
 // To check the auth status logged in or not
 import { AmplifyEventBus } from 'aws-amplify-vue';
 // Validation
-import { required, minLength, email } from 'vuelidate/lib/validators';
+import { required, minLength, email, sameAs } from 'vuelidate/lib/validators';
 // Special Validation
 import {
   hasNumber,
@@ -85,6 +96,7 @@ export default {
     username: '',
     email: '',
     password: '',
+    repeatPassword: '',
     termsAgreed: false
   }),
   validations: {
@@ -98,6 +110,11 @@ export default {
       hasLowerCaseLetter,
       hasUpperCaseLetter,
       hasSpecialCharacter
+    },
+    repeatPassword: {
+      required,
+      minLength: minLength(8),
+      sameAs: sameAs('password')
     },
     termsAgreed: {
       checked(val) {
@@ -155,13 +172,6 @@ export default {
     });
   },
   computed: {
-    termsAgreedErrors() {
-      const errors = [];
-      if (!this.$v.termsAgreed.$dirty) return errors;
-      !this.$v.termsAgreed.checked &&
-        errors.push('You must agree to continue!');
-      return errors;
-    },
     usernameErrors() {
       const errors = [];
       if (!this.$v.username.$dirty) return errors;
@@ -189,6 +199,24 @@ export default {
         errors.push('Password must contain upper-case letters');
       !this.$v.password.hasSpecialCharacter &&
         errors.push('Password must contain special character');
+      return errors;
+    },
+    repeatPasswordErrors() {
+      const errors = [];
+      if (!this.$v.repeatPassword.$dirty) return errors;
+      !this.$v.repeatPassword.required &&
+        errors.push('Repeat password is required');
+      !this.$v.repeatPassword.minLength &&
+        errors.push('Repated password must be at least 8 characters');
+      !this.$v.repeatPassword.sameAs &&
+        errors.push('It should be same as password');
+      return errors;
+    },
+    termsAgreedErrors() {
+      const errors = [];
+      if (!this.$v.termsAgreed.$dirty) return errors;
+      !this.$v.termsAgreed.checked &&
+        errors.push('You must agree to continue!');
       return errors;
     }
   }
