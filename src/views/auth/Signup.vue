@@ -5,7 +5,6 @@
     </v-toolbar>
     <v-progress-linear v-if="pendingRequest" indeterminate color="secondary"></v-progress-linear>
     <v-card-text>
-      <pre>{{$v.password}}</pre>
       <v-form>
         <v-text-field
           v-model="username"
