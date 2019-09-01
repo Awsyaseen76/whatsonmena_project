@@ -24,12 +24,12 @@
         </small>
       </p>
       <v-spacer></v-spacer>
+      <v-btn color="error" to="/">Cancel</v-btn>
       <v-btn
         class="green--text text--darken-4"
         color="primary"
         @click="forgetPassword(userEmail)"
       >Reset-password</v-btn>
-      <v-btn color="error" to="/">Cancel</v-btn>
     </v-card-actions>
   </v-card>
 </template>

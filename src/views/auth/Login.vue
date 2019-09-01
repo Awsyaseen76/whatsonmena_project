@@ -12,6 +12,7 @@
           type="text"
           prepend-icon="email"
           v-model="logData.email"
+          required
         ></v-text-field>
         <v-text-field
           id="password"
@@ -39,8 +40,8 @@
         </p>
       </div>
       <v-spacer></v-spacer>
-      <v-btn class="green--text text--darken-4" color="primary" @click="loginUser(logData)">Login</v-btn>
       <v-btn color="error" to="/">Cancel</v-btn>
+      <v-btn class="green--text text--darken-4" color="primary" @click="loginUser(logData)">Login</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -58,9 +59,9 @@ export default {
       logData: { email: this.$route.query.email || '', password: '' }
     };
   },
-  props: {
-    source: String
-  },
+  // props: {
+  //   source: String
+  // },
   methods: {
     ...mapActions(['login']),
     async loginUser(logData) {
@@ -79,6 +80,7 @@ export default {
   },
   created() {
     this.$emit(`update:layout`, AuthLayout);
-  }
+  },
+  computed: {}
 };
 </script>

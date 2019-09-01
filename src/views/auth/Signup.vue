@@ -5,34 +5,45 @@
     </v-toolbar>
     <v-progress-linear v-if="pendingRequest" indeterminate color="secondary"></v-progress-linear>
     <v-card-text>
+      <pre>{{$v.password}}</pre>
       <v-form>
         <v-text-field
-          label="User name"
-          name="username"
-          type="text"
+          v-model="username"
+          :error-messages="usernameErrors"
           prepend-icon="person"
-          v-model="regData.username"
+          label="User name"
+          required
+          @input="$v.username.$touch()"
+          @blur="$v.username.$touch()"
         ></v-text-field>
         <v-text-field
-          label="Email"
-          name="email"
-          type="text"
+          v-model="email"
+          :error-messages="emailErrors"
           prepend-icon="email"
-          v-model="regData.email"
+          label="Email"
+          required
+          @input="$v.email.$touch()"
+          @blur="$v.email.$touch()"
         ></v-text-field>
         <v-text-field
-          id="password"
-          label="Password"
-          name="password"
+          v-model="password"
+          :error-messages="passwordErrors"
+          :counter="$v.password.$params.minLength.min"
           type="password"
           prepend-icon="lock"
-          v-model="regData.password"
+          label="Password"
+          required
+          @input="$v.password.$touch()"
+          @blur="$v.password.$touch()"
         ></v-text-field>
         <v-checkbox
           v-model="termsAgreed"
+          :error-messages="termsAgreedErrors"
           :rules="[v => !!v || 'Please read and agree the terms and conditions!']"
           label="Read and agree the terms and conditions"
           required
+          @change="$v.termsAgreed.$touch()"
+          @blur="$v.termsAgreed.$touch()"
         ></v-checkbox>
       </v-form>
     </v-card-text>
@@ -44,12 +55,8 @@
         </small>
       </p>
       <v-spacer></v-spacer>
-      <v-btn
-        class="green--text text--darken-4"
-        color="primary"
-        @click="createAccount(regData)"
-      >Sign-up</v-btn>
       <v-btn color="error" to="/">Cancel</v-btn>
+      <v-btn class="green--text text--darken-4" color="primary" @click="createAccount()">Sign-up</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -58,19 +65,31 @@
 <script>
 import AuthLayout from '../../layouts/AuthLayout';
 // import { mapActions } from 'vuex';
+// main authorization model
 import { Auth } from 'aws-amplify';
+// To check the auth status logged in or not
 import { AmplifyEventBus } from 'aws-amplify-vue';
+// Validation
+import { required, minLength, email } from 'vuelidate/lib/validators';
 
 export default {
   data: () => ({
     pendingRequest: false,
     signedIn: false,
-    // drawer: null,
-    regData: { username: '', email: '', password: '' },
+    username: '',
+    email: '',
+    password: '',
     termsAgreed: false
   }),
-  props: {
-    source: String
+  validations: {
+    username: { required },
+    email: { required, email },
+    password: { required, minLength: minLength(8) },
+    termsAgreed: {
+      checked(val) {
+        return val;
+      }
+    }
   },
   methods: {
     // ...mapActions(['register'])
@@ -85,25 +104,28 @@ export default {
       }
     },
     async createAccount() {
-      this.pendingRequest = true;
-      Auth.signUp({
-        username: this.regData.email,
-        password: this.regData.password,
-        attributes: {
-          email: this.regData.email,
-          name: this.regData.username
-        },
-        validationData: [] // optional
-      })
-        .then(data => {
-          this.pendingRequest = false;
-          this.$router.push({
-            path: '/confirmSignup',
-            query: { email: this.regData.email }
-          });
-          console.log(data);
+      this.$v.$touch();
+      if (!this.$v.$dirty) {
+        this.pendingRequest = true;
+        Auth.signUp({
+          username: this.email,
+          password: this.password,
+          attributes: {
+            email: this.email,
+            name: this.username
+          },
+          validationData: [] // optional
         })
-        .catch(err => console.log(err));
+          .then(data => {
+            this.pendingRequest = false;
+            this.$router.push({
+              path: '/confirmSignup',
+              query: { email: this.email }
+            });
+            console.log(data);
+          })
+          .catch(err => console.log(err));
+      }
     }
   },
   created() {
@@ -118,6 +140,35 @@ export default {
       }
     });
   },
-  methods: {}
+  computed: {
+    termsAgreedErrors() {
+      const errors = [];
+      if (!this.$v.termsAgreed.$dirty) return errors;
+      !this.$v.termsAgreed.checked &&
+        errors.push('You must agree to continue!');
+      return errors;
+    },
+    usernameErrors() {
+      const errors = [];
+      if (!this.$v.username.$dirty) return errors;
+      !this.$v.username.required && errors.push('User name is required.');
+      return errors;
+    },
+    emailErrors() {
+      const errors = [];
+      if (!this.$v.email.$dirty) return errors;
+      !this.$v.email.email && errors.push('Must be valid e-mail');
+      !this.$v.email.required && errors.push('E-mail is required');
+      return errors;
+    },
+    passwordErrors() {
+      const errors = [];
+      if (!this.$v.password.$dirty) return errors;
+      !this.$v.password.minLength &&
+        errors.push('Password must be at least 8 characters');
+      !this.$v.password.required && errors.push('Password is required');
+      return errors;
+    }
+  }
 };
 </script>

@@ -7,8 +7,10 @@ import Amplify, * as AmplifyModules from 'aws-amplify';
 import { AmplifyPlugin } from 'aws-amplify-vue';
 import awsconfig from './aws-exports';
 Amplify.configure(awsconfig);
+import Vuelidate from 'vuelidate';
 
 Vue.use(AmplifyPlugin, AmplifyModules);
+Vue.use(Vuelidate);
 
 Vue.config.productionTip = false;
 
