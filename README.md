@@ -1,92 +1,31 @@
-# whatsonmena_project
+# Whatsonmena
 
-logs django docker:
-`docker logs --tail 50 --follow --timestamps back_auth_1`
+## Getting Started
 
-### use simple views istead of generics
+### Installation Instructions
 
-Test
+1.  On GitHub, fork the repo by clicking the Fork button in the GitHub UI.
+2.  Clone the repo on your local machine and go into the directory:
 
-## Into amplify:
+        $ git clone git@github.com:{YOUR_USERNAME}/whatsonmena.git
+        OR
+        $ git clone https://github.com/{YOUR_USERNAME}/whatsonmena.git
 
-(1) `npm install -g @aws-amplify/cli`
-(2) Configure : `amplify configure`
-(3) Host an application on AWS cloud: `amplify init`
-(4) check the status: `amplify status`
-(5) Add hosting: `amplify add hosting`
-(6) Add service: Add hosting: `amplify add hosting`
-(7) Publish hosting: `amplify publish`
-(8) Creating continuous deployment Pipelines using aws-amplify console
+        $ cd whatsonmena
 
-# Vue
+3.  Add upstream remotes:
 
-## Start from 0:
+        $ git remote add upstream git@github.com:Zarad1993/whatsonmena.git
+        OR
+        $ git remote add upstream https://github.com/Zarad1993/whatsonmena.git
 
-`npm install -g @vue/cli`
+4.  Create the `web-api-layer` network in Docker (this only needs to happen once):
 
-<!-- `npm install -g @aws-amplify/cli` -->
+        $ docker network create web-api-layer
 
-### Create a App:
+5.  Start up the Vue application web interface container:
 
-- `vue create whatsonmena`
-- Choose: Babel, Router, Vuex and Linter/Formatter
-  the configurations for babel, eslint ... is in the package.json
-- run the app
-  `npm run serve`
-
-#### The power of Prettier:
-
-- config Prettier in package.json
-  using single quote and tab 4 spaces not 2(default)
-- put it in action from terminal:
-  `npm run lint`
-
-## Using Vuetify:
-
-- `vue add vuetify`
-
-## Try to put it on Docker
-
-- create the Dockerfile
-- terminal:
-    <!-- `docker build -t dockerize-vue .` -->
-  `docker build -t auth-vue .`
-  run it:
-  1. the normal will run on the port 8080
-     `docker run -it -p 8080:80 --rm --name dockerize-vuejs dockerize-vue`
-     go to:
-     `localhost:8080`
-  2. to use the updated version that get data from django change the port to 4200 as what heppend on the file vue.config.js
-     `docker run -it -p 4200:80 --rm --name dockerize-vuejs dockerize-vue`
-     now go to:
-     `localhost:4200`
-
-###Notes:
-
-1. if go to: `localhost:8080/home` (with home) it is not working
-   but if we use the navbar its ok (without home)
-2. the menu bar for the larg screen is not ok
-
-## Connect to Django:
-
-- `npm install axios`
-- create the file glue.js it will glue the vue with the django:
-  import axios
-  create axios and set the base url 'http://localhost:8000/auth_api'
-- on the file vue.config.js:
-  Set the port for 4200 that match the port on CORS settings in django in the CORS_ORIGIN_WHITELIST
-
----
-
----
-
----
-
----
-
----
-
----
+    \$ make web
 
 # whatsonmena
 
