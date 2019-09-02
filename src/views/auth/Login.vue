@@ -7,20 +7,23 @@
     <v-card-text>
       <v-form>
         <v-text-field
-          label="Email"
-          name="email"
-          type="text"
+          v-model="email"
+          :error-messages="emailErrors"
           prepend-icon="email"
-          v-model="logData.email"
+          label="Email"
           required
+          @input="$v.email.$touch()"
+          @blur="$v.email.$touch()"
         ></v-text-field>
         <v-text-field
-          id="password"
-          label="Password"
-          name="password"
-          type="password"
+          v-model="password"
+          :error-messages="passwordErrors"
           prepend-icon="lock"
-          v-model="logData.password"
+          label="Password"
+          type="password"
+          required
+          @input="$v.password.$touch()"
+          @blur="$v.password.$touch()"
         ></v-text-field>
       </v-form>
     </v-card-text>
@@ -28,7 +31,7 @@
       <div>
         <p style="margin: 0">
           <small>
-            account?
+            Don't have account?
             <a href="/signup">Signup</a>
           </small>
         </p>
@@ -41,7 +44,7 @@
       </div>
       <v-spacer></v-spacer>
       <v-btn color="error" to="/">Cancel</v-btn>
-      <v-btn class="green--text text--darken-4" color="primary" @click="loginUser(logData)">Login</v-btn>
+      <v-btn class="green--text text--darken-4" color="primary" @click="loginUser()">Login</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -50,23 +53,21 @@
 import { Auth } from 'aws-amplify';
 import AuthLayout from '../../layouts/AuthLayout';
 import { mapActions } from 'vuex';
+import { required, email } from 'vuelidate/lib/validators';
 
 export default {
   data() {
     return {
       pendingRequest: false,
-      // drawer: null,
-      logData: { email: this.$route.query.email || '', password: '' }
+      email: this.$route.query.email || '',
+      password: ''
     };
   },
-  // props: {
-  //   source: String
-  // },
   methods: {
     ...mapActions(['login']),
-    async loginUser(logData) {
+    async loginUser() {
       this.pendingRequest = true;
-      Auth.signIn(this.logData.email, this.logData.password)
+      Auth.signIn(this.email, this.password)
         .then(user => {
           console.log(user);
           this.pendingRequest = false;
@@ -81,6 +82,24 @@ export default {
   created() {
     this.$emit(`update:layout`, AuthLayout);
   },
-  computed: {}
+  validations: {
+    email: { required, email },
+    password: { required }
+  },
+  computed: {
+    emailErrors() {
+      const errors = [];
+      if (!this.$v.email.$dirty) return errors;
+      !this.$v.email.email && errors.push('Must be valid e-mail');
+      !this.$v.email.required && errors.push('E-mail is required');
+      return errors;
+    },
+    passwordErrors() {
+      const errors = [];
+      if (!this.$v.password.$dirty) return errors;
+      !this.$v.password.required && errors.push('Password is required');
+      return errors;
+    }
+  }
 };
 </script>
